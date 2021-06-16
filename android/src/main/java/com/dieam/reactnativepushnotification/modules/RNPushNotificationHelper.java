@@ -941,7 +941,7 @@ public class RNPushNotificationHelper {
             }
 
             if(groupId != null){
-                channel.setGroup(groupId)
+                channel.setGroup(groupId);
             }
 
             manager.createNotificationChannel(channel);
