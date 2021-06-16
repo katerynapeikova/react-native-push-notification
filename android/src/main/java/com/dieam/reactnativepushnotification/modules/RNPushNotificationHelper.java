@@ -981,6 +981,8 @@ public class RNPushNotificationHelper {
         NotificationManager manager = notificationManager();
         
         manager.createNotificationChannelGroup(new NotificationChannelGroup(groupId, groupName));
+
+        return true;
     }
     
     public boolean isApplicationInForeground() {
