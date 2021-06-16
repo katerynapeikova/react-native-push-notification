@@ -970,7 +970,7 @@ public class RNPushNotificationHelper {
 
         Uri soundUri = playSound ? getSoundUri(soundName) : null;
 
-        return checkOrCreateChannel(manager, channelId, channelName, channelDescription, soundUri, importance, vibratePatter, groupId);
+        return checkOrCreateChannel(manager, channelId, channelName, channelDescription, soundUri, importance, vibratePattern, groupId);
     }
 
     public boolean createChannelGroup(ReadableMap channelGroupInfo){
