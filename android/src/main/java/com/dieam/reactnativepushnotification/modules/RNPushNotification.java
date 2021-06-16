@@ -322,6 +322,18 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
 
     @ReactMethod
     /**
+     * Creates a channel group. Returns whether the channel was created.
+     */
+    public void createChannelGroup(ReadableMap channelGroupInfo, Callback callback) {
+      boolean created = mRNPushNotificationHelper.createChannelGroup(channelGroupInfo);
+
+      if(callback != null) {
+        callback.invoke(created);
+      }
+    }
+
+    @ReactMethod
+    /**
      * Check if channel is blocked with a given id
      */
     public void channelBlocked(String channel_id, Callback callback) {

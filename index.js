@@ -592,6 +592,10 @@ Notifications.createChannel = function() {
   return this.callNative('createChannel', arguments);
 };
 
+Notifications.createChannelGroup = function() {
+  return this.callNative('createChannelGroup', arguments);
+};
+
 Notifications.channelBlocked = function() {
   return this.callNative('channelBlocked', arguments);
 };

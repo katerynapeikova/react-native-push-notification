@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -903,7 +904,7 @@ public class RNPushNotificationHelper {
         manager.deleteNotificationChannel(channel_id);
     }
 
-    private boolean checkOrCreateChannel(NotificationManager manager, String channel_id, String channel_name, String channel_description, Uri soundUri, int importance, long[] vibratePattern) {
+    private boolean checkOrCreateChannel(NotificationManager manager, String channel_id, String channel_name, String channel_description, Uri soundUri, int importance, long[] vibratePattern, String groupId) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             return false;
         if (manager == null)
@@ -939,6 +940,10 @@ public class RNPushNotificationHelper {
                 channel.setSound(null, null);
             }
 
+            if(groupId != null){
+                channel.setGroup(groupId)
+            }
+
             manager.createNotificationChannel(channel);
 
             return true;
@@ -959,12 +964,23 @@ public class RNPushNotificationHelper {
         int importance = channelInfo.hasKey("importance") ? channelInfo.getInt("importance") : 4;
         boolean vibrate = channelInfo.hasKey("vibrate") && channelInfo.getBoolean("vibrate");
         long[] vibratePattern = vibrate ? new long[] { 0, DEFAULT_VIBRATION } : null;
+        String groupId = channelInfo.hasKey("groupId") ? channelInfo.getString("groupId") : null;
 
         NotificationManager manager = notificationManager();
 
         Uri soundUri = playSound ? getSoundUri(soundName) : null;
 
-        return checkOrCreateChannel(manager, channelId, channelName, channelDescription, soundUri, importance, vibratePattern);
+        return checkOrCreateChannel(manager, channelId, channelName, channelDescription, soundUri, importance, vibratePatter, groupId);
+    }
+
+    public boolean createChannelGroup(ReadableMap channelGroupInfo){
+
+        String groupId = channelGroupInfo.getString("groupId");
+        String groupName = channelGroupInfo.getString("groupName");
+
+        NotificationManager manager = notificationManager();
+        
+        manager.createNotificationChannelGroup(new NotificationChannelGroup(groupId, groupName));
     }
     
     public boolean isApplicationInForeground() {

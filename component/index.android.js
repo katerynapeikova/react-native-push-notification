@@ -162,6 +162,10 @@ NotificationsComponent.prototype.createChannel = function(channelInfo, callback)
 	RNPushNotification.createChannel(channelInfo, callback);
 }
 
+NotificationsComponent.prototype.createChannelGroup = function(channelGroupInfo, callback) {
+	RNPushNotification.createChannelGroup(channelGroupInfo, callback);
+}
+
 NotificationsComponent.prototype.channelBlocked = function(channel_id, callback) {
 	RNPushNotification.channelBlocked(channel_id, callback);
 }
